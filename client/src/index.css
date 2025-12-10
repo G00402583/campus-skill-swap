@@ -30,7 +30,7 @@ a {
   text-decoration: none;
 }
 
-/* Shell + layout */
+
 
 .app-shell {
   min-height: 100vh;
@@ -122,7 +122,7 @@ a {
   flex: 1;
 }
 
-/* Typography */
+
 
 .page-title {
   font-size: clamp(1.7rem, 4vw, 2.4rem);
@@ -137,7 +137,7 @@ a {
   margin-bottom: 18px;
 }
 
-/* Filters + list page */
+
 
 .filters-card {
   border-radius: var(--radius-lg);
@@ -323,7 +323,7 @@ a {
   color: var(--muted);
 }
 
-/* Stats card (popular skill tags) */
+
 
 .stats-card {
   border-radius: var(--radius-lg);
@@ -358,7 +358,7 @@ a {
   color: var(--muted);
 }
 
-/* Footer */
+
 
 .app-footer {
   border-top: 1px solid var(--border);
@@ -373,7 +373,6 @@ a {
   );
 }
 
-/* Detail page */
 
 .offer-detail-wrapper {
   max-width: 960px;
@@ -427,7 +426,7 @@ a {
   margin-top: 1.75rem;
 }
 
-/* Reusable buttons for detail + forms */
+
 
 .button-secondary,
 .button-danger,
@@ -490,7 +489,7 @@ a {
   color: #e5e7eb;
 }
 
-/* Detailed card (used if you have the other variant) */
+
 
 .detail-card {
   max-width: 720px;
@@ -546,7 +545,7 @@ a {
   gap: 0.75rem;
 }
 
-/* Create/Edit form styling */
+
 
 .form-card {
   margin-top: 18px;
@@ -627,7 +626,7 @@ a {
   gap: 10px;
 }
 
-/* Mobile tweaks */
+
 
 @media (max-width: 640px) {
   .header-inner {
@@ -680,14 +679,14 @@ a {
   padding: 24px 22px 30px;
 }
 
-/* Title */
+
 .edit-offer-card h2 {
   font-size: 1.4rem;
   font-weight: 700;
   margin-bottom: 14px;
 }
 
-/* Form layout */
+
 .edit-form-grid {
   display: grid;
   gap: 14px;
@@ -704,7 +703,7 @@ a {
   color: var(--muted);
 }
 
-/* Inputs */
+
 .edit-input,
 .edit-textarea,
 .edit-select {
@@ -728,7 +727,7 @@ a {
   border-color: var(--accent);
 }
 
-/* Checkbox */
+
 .edit-checkbox-row {
   display: flex;
   align-items: center;
@@ -736,7 +735,7 @@ a {
   margin-top: 8px;
 }
 
-/* Submit button */
+
 .edit-save-btn {
   margin-top: 18px;
   padding: 10px 20px;
@@ -756,14 +755,14 @@ a {
   box-shadow: 0 16px 36px rgba(22,163,74,0.65);
 }
 
-/* Mobile improvements */
+
 @media (max-width: 640px) {
   .edit-offer-card {
     padding: 18px 16px 24px;
   }
 }
 
-/* Members directory */
+
 
 .members-list {
   margin-top: 22px;
@@ -824,7 +823,7 @@ a {
   font-weight: 500;
 }
 
-/* Mobile tweak for members list */
+
 @media (max-width: 640px) {
   .member-header {
     align-items: flex-start;

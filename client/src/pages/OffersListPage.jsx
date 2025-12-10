@@ -1,4 +1,4 @@
-// This is the new code written: OffersListPage shows the main list of offers with filters and the skill-tag summary sidebar.
+
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import apiClient from "../api/apiClient.js";

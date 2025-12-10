@@ -1,4 +1,4 @@
-const TOKEN_KEY = "css_token"; // campus-skill-swap token
+const TOKEN_KEY = "css_token"; 
 const USER_KEY = "css_user";
 
 export function saveAuth(token, user) {

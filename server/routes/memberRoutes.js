@@ -3,7 +3,6 @@ import Member from "../models/Member.js";
 
 const router = express.Router();
 
-// Create a member
 router.post("/", async (req, res) => {
   try {
     const member = new Member(req.body);
@@ -16,8 +15,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-// List members with optional filters
-// GET /api/members?courseName=...&studyYear=3&skill=fitness
+
 router.get("/", async (req, res) => {
   try {
     const { courseName, studyYear, skill } = req.query;
@@ -25,7 +23,7 @@ router.get("/", async (req, res) => {
     const filter = {};
 
     if (courseName) {
-      // case-insensitive match on course name
+     
       filter.courseName = new RegExp(courseName, "i");
     }
 
@@ -34,7 +32,7 @@ router.get("/", async (req, res) => {
     }
 
     if (skill) {
-      // member has this skill in their skills array
+      
       filter.skills = skill;
     }
 
@@ -50,7 +48,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-// Get single member by id
+
 router.get("/:id", async (req, res) => {
   try {
     const member = await Member.findById(req.params.id).lean();
@@ -65,7 +63,7 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-// (Optional) update member – not used heavily in UI but good for completeness
+
 router.put("/:id", async (req, res) => {
   try {
     const updated = await Member.findByIdAndUpdate(req.params.id, req.body, {
@@ -83,7 +81,7 @@ router.put("/:id", async (req, res) => {
   }
 });
 
-// (Optional) delete member
+
 router.delete("/:id", async (req, res) => {
   try {
     const deleted = await Member.findByIdAndDelete(req.params.id);
