@@ -5,6 +5,7 @@ import OfferDetailPage from "./pages/OfferDetailPage.jsx";
 import MemberProfilePage from "./pages/MemberProfilePage.jsx";
 import MainLayout from "./components/MainLayout.jsx";
 import EditOfferPage from "./pages/EditOfferPage.jsx";
+import MembersListPage from "./pages/MembersListPage.jsx";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="/offers/:id" element={<OfferDetailPage />} />
         <Route path="/offers/:id/edit" element={<EditOfferPage />} />
         <Route path="/members/:id" element={<MemberProfilePage />} />
+        <Route path="/members" element={<MembersListPage />} />
       </Routes>
     </MainLayout>
   );

@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 import memberRoutes from "./routes/memberRoutes.js";
 import offerRoutes from "./routes/offerRoutes.js";
 
+
 dotenv.config();
 
 const app = express();
@@ -14,6 +15,8 @@ app.use(express.json());
 
 app.use("/api/members", memberRoutes);
 app.use("/api/offers", offerRoutes);
+
+
 
 const port = 4000;
 

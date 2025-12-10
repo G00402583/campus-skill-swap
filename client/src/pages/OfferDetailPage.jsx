@@ -5,6 +5,7 @@ import apiClient from "../api/apiClient.js";
 function OfferDetailPage() {
   const { id } = useParams();
   const navigate = useNavigate();
+
   const [offer, setOffer] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
@@ -16,7 +17,6 @@ function OfferDetailPage() {
       const response = await apiClient.get(`/offers/${id}`);
       setOffer(response.data);
     } catch (error) {
-      console.error("Failed to load offer", error);
       setErrorMessage("Could not load this offer.");
     } finally {
       setIsLoading(false);
@@ -34,7 +34,6 @@ function OfferDetailPage() {
       await apiClient.delete(`/offers/${id}`);
       navigate("/offers");
     } catch (error) {
-      console.error("Failed to delete offer", error);
       setErrorMessage("Could not delete this offer.");
       setIsDeleting(false);
     }
@@ -45,65 +44,78 @@ function OfferDetailPage() {
   }, [id]);
 
   if (isLoading) {
-    return <p>Loading offer...</p>;
+    return <p className="empty-state">Loading offer...</p>;
   }
 
   if (!offer) {
-    return <p>Offer not found.</p>;
+    return <p className="empty-state">Offer not found.</p>;
   }
 
   return (
-    <div className="bg-white border rounded-lg p-4 space-y-3">
-      <h1 className="text-2xl font-semibold mb-2">{offer.title}</h1>
-      <p className="mb-3 text-slate-700">{offer.descriptionText}</p>
-      <p className="text-sm mb-1">
-        Skill tag: <span className="font-medium">{offer.skillTag}</span>
-      </p>
-      <p className="text-sm mb-1">
-        {offer.rateType === "free"
-          ? "Free"
-          : offer.priceValue
-          ? `${offer.priceValue} / ${
-              offer.rateType === "per_hour" ? "hour" : "project"
-            }`
-          : "Contact for price"}
-      </p>
+    <div className="detail-card">
+      <h1 className="page-title">{offer.title}</h1>
+
+      <p className="detail-main-text">{offer.descriptionText}</p>
+
+      <div className="detail-meta-grid">
+        <div>
+          <p className="detail-label">Skill tag</p>
+          <p className="detail-value tag-pill">{offer.skillTag}</p>
+        </div>
+        <div>
+          <p className="detail-label">Rate</p>
+          <p className="detail-value">
+            {offer.rateType === "free"
+              ? "Free"
+              : offer.priceValue
+              ? `${offer.priceValue} / ${
+                  offer.rateType === "per_hour" ? "hour" : "project"
+                }`
+              : "Contact for price"}
+          </p>
+        </div>
+        <div>
+          <p className="detail-label">Created at</p>
+          <p className="detail-value">
+            {new Date(offer.createdAt).toLocaleString()}
+          </p>
+        </div>
+      </div>
+
       {offer.memberId && (
-        <p className="text-sm mb-2">
-          Offered by{" "}
-          <Link
-            to={`/members/${offer.memberId._id}`}
-            className="underline text-slate-900"
-          >
-            {offer.memberId.fullName}
-          </Link>{" "}
-          ({offer.memberId.courseName}, year {offer.memberId.studyYear})
-        </p>
+        <div className="detail-author">
+          <p className="detail-label">Offered by</p>
+          <p className="detail-value">
+            <Link
+              to={`/members/${offer.memberId._id}`}
+              className="link-quiet"
+            >
+              {offer.memberId.fullName}
+            </Link>{" "}
+            ({offer.memberId.courseName}, year {offer.memberId.studyYear})
+          </p>
+        </div>
       )}
-      <p className="text-xs text-slate-500">
-        Created at {new Date(offer.createdAt).toLocaleString()}
-      </p>
 
       {errorMessage && (
-        <p className="text-red-600 text-sm mt-2">{errorMessage}</p>
+        <p className="detail-error">{errorMessage}</p>
       )}
 
-      <div className="mt-4 flex gap-3">
-        <Link
-          to={`/offers/${id}/edit`}
-          className="px-3 py-2 rounded bg-slate-900 text-white text-sm"
-        >
+      <div className="detail-actions">
+        <Link to={`/offers/${id}/edit`} className="button-secondary">
           Edit offer
         </Link>
+
         <button
           type="button"
           onClick={handleDelete}
           disabled={isDeleting}
-          className="px-3 py-2 rounded bg-red-600 text-white text-sm disabled:opacity-60"
+          className="button-danger"
         >
           {isDeleting ? "Deleting..." : "Delete offer"}
         </button>
-        <Link to="/offers" className="text-sm underline">
+
+        <Link to="/offers" className="button-ghost">
           Back to list
         </Link>
       </div>

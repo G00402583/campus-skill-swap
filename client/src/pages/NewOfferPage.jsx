@@ -50,8 +50,7 @@ function NewOfferPage() {
       const offerResponse = await apiClient.post("/offers", offerPayload);
       navigate(`/offers/${offerResponse.data._id}`);
     } catch (error) {
-      setErrorMessage("Could not create offer. Please check your input.");
-      console.error("Failed to create offer", error);
+      setErrorMessage("Could not create offer. Please check your details.");
     } finally {
       setIsSubmitting(false);
     }
@@ -59,47 +58,47 @@ function NewOfferPage() {
 
   return (
     <div>
-      <h1 className="text-2xl font-semibold mb-4">Create a new skill offer</h1>
+      <h1 className="page-title">Create a new skill offer</h1>
+      <p className="page-subtitle">
+        Share a skill you can help other students with and make it easy to find you.
+      </p>
 
-      <form
-        onSubmit={handleSubmit}
-        className="bg-white border rounded-lg p-4 space-y-4 max-w-3xl"
-      >
-        <section>
-          <h2 className="font-medium mb-2">Your details</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-            <div className="flex flex-col">
-              <label className="text-sm mb-1">Full name</label>
+      <form onSubmit={handleSubmit} className="form-card">
+        <section className="form-section">
+          <h2 className="form-section-title">Your details</h2>
+          <div className="form-grid-two">
+            <div className="form-field">
+              <label className="form-label">Full name</label>
               <input
                 type="text"
                 required
                 value={fullName}
                 onChange={(e) => setFullName(e.target.value)}
-                className="border rounded px-2 py-1"
+                className="form-input"
               />
             </div>
-            <div className="flex flex-col">
-              <label className="text-sm mb-1">Email address</label>
+            <div className="form-field">
+              <label className="form-label">Email address</label>
               <input
                 type="email"
                 required
                 value={emailAddress}
                 onChange={(e) => setEmailAddress(e.target.value)}
-                className="border rounded px-2 py-1"
+                className="form-input"
               />
             </div>
-            <div className="flex flex-col">
-              <label className="text-sm mb-1">Course name</label>
+            <div className="form-field">
+              <label className="form-label">Course name</label>
               <input
                 type="text"
                 required
                 value={courseName}
                 onChange={(e) => setCourseName(e.target.value)}
-                className="border rounded px-2 py-1"
+                className="form-input"
               />
             </div>
-            <div className="flex flex-col">
-              <label className="text-sm mb-1">Study year</label>
+            <div className="form-field">
+              <label className="form-label">Study year</label>
               <input
                 type="number"
                 min="1"
@@ -107,96 +106,102 @@ function NewOfferPage() {
                 required
                 value={studyYear}
                 onChange={(e) => setStudyYear(e.target.value)}
-                className="border rounded px-2 py-1"
+                className="form-input"
               />
             </div>
           </div>
-          <div className="flex flex-col mt-3">
-            <label className="text-sm mb-1">Short bio</label>
+
+          <div className="form-field">
+            <label className="form-label">Short bio</label>
             <textarea
-              rows={3}
               value={bioText}
               onChange={(e) => setBioText(e.target.value)}
-              className="border rounded px-2 py-1"
+              className="form-textarea"
+              placeholder="Briefly describe yourself and how you like to work with people."
             />
           </div>
         </section>
 
-        <section>
-          <h2 className="font-medium mb-2">Offer details</h2>
-          <div className="flex flex-col mb-3">
-            <label className="text-sm mb-1">Offer title</label>
+        <section className="form-section">
+          <h2 className="form-section-title">Offer details</h2>
+
+          <div className="form-field">
+            <label className="form-label">Offer title</label>
             <input
               type="text"
               required
               value={title}
               onChange={(e) => setTitle(e.target.value)}
+              className="form-input"
               placeholder="e.g. Gym coaching for beginners"
-              className="border rounded px-2 py-1"
             />
           </div>
-          <div className="flex flex-col mb-3">
-            <label className="text-sm mb-1">Description</label>
+
+          <div className="form-field">
+            <label className="form-label">Description</label>
             <textarea
-              rows={3}
               required
               value={descriptionText}
               onChange={(e) => setDescriptionText(e.target.value)}
-              placeholder="Explain what you offer, how it works, and who it's for."
-              className="border rounded px-2 py-1"
+              className="form-textarea"
+              placeholder="Explain what you offer, how it works, and who it is best for."
             />
           </div>
-          <div className="flex flex-col mb-3">
-            <label className="text-sm mb-1">Skill tag</label>
-            <input
-              type="text"
-              required
-              value={skillTag}
-              onChange={(e) => setSkillTag(e.target.value)}
-              placeholder="e.g. fitness, web, maths"
-              className="border rounded px-2 py-1"
-            />
-          </div>
-          <div className="flex flex-col md:flex-row md:items-center gap-3 mb-3">
-            <div className="flex flex-col">
-              <label className="text-sm mb-1">Rate type</label>
+
+          <div className="form-grid-two">
+            <div className="form-field">
+              <label className="form-label">Skill tag</label>
+              <input
+                type="text"
+                required
+                value={skillTag}
+                onChange={(e) => setSkillTag(e.target.value)}
+                className="form-input"
+                placeholder="e.g. fitness, web, maths"
+              />
+            </div>
+
+            <div className="form-field">
+              <label className="form-label">Rate type</label>
               <select
                 value={rateType}
                 onChange={(e) => setRateType(e.target.value)}
-                className="border rounded px-2 py-1"
+                className="form-select"
               >
                 <option value="per_hour">Per hour</option>
                 <option value="per_project">Per project</option>
                 <option value="free">Free</option>
               </select>
             </div>
-            {rateType !== "free" && (
-              <div className="flex flex-col">
-                <label className="text-sm mb-1">Price</label>
-                <input
-                  type="number"
-                  min="0"
-                  required
-                  value={priceValue}
-                  onChange={(e) => setPriceValue(e.target.value)}
-                  className="border rounded px-2 py-1"
-                />
-              </div>
-            )}
           </div>
+
+          {rateType !== "free" && (
+            <div className="form-field">
+              <label className="form-label">Price</label>
+              <input
+                type="number"
+                min="0"
+                required
+                value={priceValue}
+                onChange={(e) => setPriceValue(e.target.value)}
+                className="form-input"
+              />
+              <span className="form-hint">Use whole numbers (euro).</span>
+            </div>
+          )}
         </section>
 
-        {errorMessage && (
-          <p className="text-red-600 text-sm">{errorMessage}</p>
-        )}
+        {errorMessage && <p className="form-error">{errorMessage}</p>}
 
-        <button
-          type="submit"
-          disabled={isSubmitting}
-          className="px-4 py-2 rounded bg-slate-900 text-white disabled:opacity-60"
-        >
-          {isSubmitting ? "Creating offer..." : "Create offer"}
-        </button>
+        <div className="form-actions">
+          <button
+            type="submit"
+            disabled={isSubmitting}
+            className="button-primary"
+          >
+            {isSubmitting ? "Creating offer..." : "Create offer"}
+          </button>
+        </div>
       </form>
     </div>
   );

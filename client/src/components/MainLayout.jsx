@@ -3,34 +3,49 @@ import { Link, useLocation } from "react-router-dom";
 function MainLayout({ children }) {
   const location = useLocation();
 
+  const isOffers = location.pathname.startsWith("/offers");
+  const isMembers = location.pathname.startsWith("/members");
+  const isCreate = location.pathname === "/offers/new";
+
   return (
-    <div className="min-h-screen bg-slate-100">
-      <header className="bg-slate-900 text-white">
-        <div className="max-w-5xl mx-auto px-4 py-4 flex items-center justify-between">
-          <Link to="/offers" className="font-bold text-xl">
-            Campus Skill Swap
+    <div className="app-shell">
+      <header className="app-header">
+        <div className="header-inner">
+          <Link to="/offers" className="brand">
+            <div className="brand-mark">CS</div>
+            <span className="brand-text">Campus Skill Swap</span>
           </Link>
-          <nav className="flex gap-4">
+
+          <nav className="app-nav">
             <Link
               to="/offers"
               className={
-                location.pathname.startsWith("/offers") && !location.pathname.endsWith("/new")
-                  ? "underline"
-                  : ""
+                "nav-link " + (isOffers && !isCreate ? "nav-link--active" : "")
               }
             >
-              Browse Offers
+              Browse offers
             </Link>
             <Link
               to="/offers/new"
-              className={location.pathname.endsWith("/new") ? "underline" : ""}
+              className={"nav-link " + (isCreate ? "nav-link--active" : "")}
             >
-              Create Offer
+              Create offer
+            </Link>
+            <Link
+              to="/members"
+              className={"nav-link " + (isMembers ? "nav-link--active" : "")}
+            >
+              Browse members
             </Link>
           </nav>
         </div>
       </header>
-      <main className="max-w-5xl mx-auto px-4 py-6">{children}</main>
+
+      <main className="page-container">{children}</main>
+
+      <footer className="app-footer">
+        Campus Skill Swap · Built with the MERN stack
+      </footer>
     </div>
   );
 }

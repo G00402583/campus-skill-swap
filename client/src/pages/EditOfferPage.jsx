@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, Link } from "react-router-dom";
 import apiClient from "../api/apiClient.js";
 
 function EditOfferPage() {
@@ -29,7 +29,7 @@ function EditOfferPage() {
       setIsActive(offer.isActive);
     } catch (error) {
       console.error("Failed to load offer for editing", error);
-      setErrorMessage("Could not load offer.");
+      setErrorMessage("Could not load this offer for editing.");
     } finally {
       setIsLoading(false);
     }
@@ -58,105 +58,112 @@ function EditOfferPage() {
       navigate(`/offers/${id}`);
     } catch (error) {
       console.error("Failed to update offer", error);
-      setErrorMessage("Could not update offer.");
+      setErrorMessage("Could not update this offer. Please try again.");
     } finally {
       setIsSubmitting(false);
     }
   }
 
   if (isLoading) {
-    return <p>Loading offer...</p>;
+    return <p className="empty-state">Loading offer...</p>;
   }
 
   return (
     <div>
-      <h1 className="text-2xl font-semibold mb-4">Edit offer</h1>
+      <h1 className="page-title">Edit offer</h1>
+      <p className="page-subtitle">
+        Update the details of this skill offer. Changes are saved for everyone browsing the marketplace.
+      </p>
 
-      <form
-        onSubmit={handleSubmit}
-        className="bg-white border rounded-lg p-4 space-y-4 max-w-3xl"
-      >
-        <div className="flex flex-col mb-3">
-          <label className="text-sm mb-1">Offer title</label>
+      <form onSubmit={handleSubmit} className="detail-card">
+        <div className="filter-field">
+          <label className="filter-label">Offer title</label>
           <input
             type="text"
             required
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            className="border rounded px-2 py-1"
+            className="filter-input"
           />
         </div>
 
-        <div className="flex flex-col mb-3">
-          <label className="text-sm mb-1">Description</label>
+        <div className="filter-field">
+          <label className="filter-label">Description</label>
           <textarea
-            rows={3}
+            rows={4}
             required
             value={descriptionText}
             onChange={(e) => setDescriptionText(e.target.value)}
-            className="border rounded px-2 py-1"
+            className="filter-input"
           />
         </div>
 
-        <div className="flex flex-col mb-3">
-          <label className="text-sm mb-1">Skill tag</label>
+        <div className="filter-field">
+          <label className="filter-label">Skill tag</label>
           <input
             type="text"
             required
             value={skillTag}
             onChange={(e) => setSkillTag(e.target.value)}
-            className="border rounded px-2 py-1"
+            className="filter-input"
+            placeholder="e.g. fitness, web, maths"
           />
         </div>
 
-        <div className="flex flex-col md:flex-row md:items-center gap-3 mb-3">
-          <div className="flex flex-col">
-            <label className="text-sm mb-1">Rate type</label>
+        <div className="detail-meta-grid">
+          <div className="filter-field">
+            <label className="filter-label">Rate type</label>
             <select
               value={rateType}
               onChange={(e) => setRateType(e.target.value)}
-              className="border rounded px-2 py-1"
+              className="filter-input"
             >
               <option value="per_hour">Per hour</option>
               <option value="per_project">Per project</option>
               <option value="free">Free</option>
             </select>
           </div>
+
           {rateType !== "free" && (
-            <div className="flex flex-col">
-              <label className="text-sm mb-1">Price</label>
+            <div className="filter-field">
+              <label className="filter-label">Price</label>
               <input
                 type="number"
                 min="0"
                 required
                 value={priceValue}
                 onChange={(e) => setPriceValue(e.target.value)}
-                className="border rounded px-2 py-1"
+                className="filter-input"
               />
             </div>
           )}
+
+          <div className="checkbox-row">
+            <input
+              id="offer-active"
+              type="checkbox"
+              checked={isActive}
+              onChange={(e) => setIsActive(e.target.checked)}
+            />
+            <label htmlFor="offer-active">Offer is active</label>
+          </div>
         </div>
 
-        <label className="flex items-center gap-2 mb-3">
-          <input
-            type="checkbox"
-            checked={isActive}
-            onChange={(e) => setIsActive(e.target.checked)}
-          />
-          Offer is active
-        </label>
+        {errorMessage && <p className="detail-error">{errorMessage}</p>}
 
-        {errorMessage && (
-          <p className="text-red-600 text-sm">{errorMessage}</p>
-        )}
+        <div className="detail-actions">
+          <button
+            type="submit"
+            disabled={isSubmitting}
+            className="button-primary"
+          >
+            {isSubmitting ? "Saving..." : "Save changes"}
+          </button>
 
-        <button
-          type="submit"
-          disabled={isSubmitting}
-          className="px-4 py-2 rounded bg-slate-900 text-white disabled:opacity-60"
-        >
-          {isSubmitting ? "Saving..." : "Save changes"}
-        </button>
+          <Link to={`/offers/${id}`} className="button-ghost">
+            Cancel
+          </Link>
+        </div>
       </form>
     </div>
   );
