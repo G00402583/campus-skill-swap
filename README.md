@@ -9,7 +9,9 @@
 <h1>Campus Skill Swap — Setup Guide</h1>
 
 <p>
-    This is my personal guide for installing, configuring, and running the Campus Skill Swap MERN application. 
+    Campus Skill Swap is a full MERN-stack web application I developed for the Data Representation and Querying module. The goal of the project was to build a platform where ATU students can offer and browse skill-based services such as tutoring, fitness coaching, and technical help.
+
+The application demonstrates full CRUD operations, server-side filtering, MongoDB Atlas integration, aggregation queries, clean component-based React architecture, and a modern responsive UI. I designed the interface and system structure to feel professional, scalable, and intuitive for users.
     Follow the steps below exactly and everything will run smoothly.
 </p>
 
