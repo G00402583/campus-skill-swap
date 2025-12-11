@@ -1,58 +1,144 @@
-<h1>Campus Skill Swap</h1>
+<h1>Campus Skill Swap — Setup Guide</h1>
 
 <p>
-Campus Skill Swap is a MERN-stack web application that allows ATU students to create,
-browse, and manage skill-based offers such as tutoring, fitness coaching, editing,
-technical support, and more. The project demonstrates full CRUD functionality,
-client–server communication using Axios, cloud-hosted data storage with MongoDB Atlas,
-and a fully responsive modern UI.
+This guide explains everything required to install, configure, and run the 
+Campus Skill Swap MERN application. Follow the steps carefully to ensure the 
+project runs correctly on your machine.
 </p>
 
 <hr>
 
-<h2>Features</h2>
+<h2>1. Required Software (Must Be Installed)</h2>
+
+<p>You must install the following tools before running the project:</p>
+
 <ul>
-  <li>Create offers with title, description, skill tag, rate type, and price</li>
-  <li>Browse available offers in a responsive card layout</li>
-  <li>Filter offers by skill tag, price range, and active status</li>
-  <li>View detailed information for each offer</li>
-  <li>Edit or delete offers</li>
-  <li>View student member profiles and their posted offers</li>
-  <li>Saved offers system using Local Storage</li>
-  <li>Skill-tag statistics using MongoDB aggregation</li>
-  <li>Fully responsive UI for mobile, tablet, and desktop</li>
+  <li><strong>Node.js (v18 or higher)</strong> — Required for running both client and server<br>
+    <a href="https://nodejs.org/">https://nodejs.org/</a>
+  </li>
+
+  <li><strong>npm</strong> — Installed automatically with Node.js</li>
+
+  <li><strong>MongoDB Atlas account</strong> — Cloud database required for this project<br>
+    <a href="https://www.mongodb.com/cloud/atlas">https://www.mongodb.com/cloud/atlas</a>
+  </li>
+
+  <li><strong>Git</strong> — To clone and work with the repository<br>
+    <a href="https://git-scm.com/">https://git-scm.com/</a>
+  </li>
+
+  <li><strong>VS Code or any code editor</strong> (recommended)</li>
 </ul>
 
 <hr>
 
-<h2>Tech Stack</h2>
+<h2>2. Required Node.js Dependencies</h2>
 
-<h3>Frontend</h3>
+<h3>Client Dependencies</h3>
+<p>These install automatically when running <code>npm install</code> inside <code>client/</code>.</p>
+
 <ul>
-  <li>React (Vite)</li>
-  <li>React Router DOM</li>
-  <li>Axios</li>
-  <li>Custom CSS styling</li>
+  <li>react</li>
+  <li>react-dom</li>
+  <li>react-router-dom</li>
+  <li>axios</li>
+  <li>vite</li>
 </ul>
 
-<h3>Backend</h3>
+<h3>Server Dependencies</h3>
+<p>These install automatically when running <code>npm install</code> inside <code>server/</code>.</p>
+
 <ul>
-  <li>Node.js</li>
-  <li>Express</li>
-  <li>Mongoose</li>
-  <li>CORS</li>
+  <li>express</li>
+  <li>mongoose</li>
+  <li>cors</li>
   <li>dotenv</li>
-  <li>Nodemon (development environment)</li>
-</ul>
-
-<h3>Database</h3>
-<ul>
-  <li>MongoDB Atlas (Cloud-hosted database)</li>
+  <li>nodemon (dev dependency)</li>
 </ul>
 
 <hr>
 
-<h2>Project Structure</h2>
+<h2>3. Setting Up MongoDB Atlas</h2>
+
+<p>The application uses a cloud-hosted MongoDB database. Follow these steps:</p>
+
+<ol>
+  <li>Create a free MongoDB Atlas account.</li>
+  <li>Create a new Cluster.</li>
+  <li>Create a database user with a username and password.</li>
+  <li>Set network access to "Allow access from anywhere".</li>
+  <li>Copy your connection string.</li>
+</ol>
+
+<p><strong>Your connection string looks like:</strong></p>
+
+<pre>
+mongodb+srv://USERNAME:PASSWORD@clustername.mongodb.net/skill_swap_db?retryWrites=true&w=majority
+</pre>
+
+<hr>
+
+<h2>4. Creating Your .env File (Server)</h2>
+
+<p>
+Inside the <code>server/</code> folder, create a file named <code>.env</code> with the 
+following content:
+</p>
+
+<pre>
+MONGO_URI=your_full_mongodb_connection_string_here
+</pre>
+
+<p><strong>Important:</strong> Replace the username and password inside the connection string.</p>
+
+<hr>
+
+<h2>5. Installing Dependencies</h2>
+
+<h3>Install Client Dependencies</h3>
+
+<pre>
+cd client
+npm install
+</pre>
+
+<h3>Install Server Dependencies</h3>
+
+<pre>
+cd server
+npm install
+</pre>
+
+<hr>
+
+<h2>6. Running the Application</h2>
+
+<h3>Start the Server (Port 4000)</h3>
+
+<pre>
+cd server
+npm run dev
+</pre>
+
+<p>
+If successful, you will see:
+<br>
+<code>Connected to MongoDB</code><br>
+<code>Server running on port 4000</code>
+</p>
+
+<h3>Start the Client (Vite Dev Server)</h3>
+
+<pre>
+cd client
+npm run dev
+</pre>
+
+<p>Open the link shown in the terminal (usually <code>http://localhost:5173</code>).</p>
+
+<hr>
+
+<h2>7. Project Structure</h2>
 
 <pre>
 project/
@@ -71,63 +157,40 @@ project/
     middleware/
     index.js
     config.js
-    .env.example
+    .env
 
   README.md
 </pre>
 
 <hr>
 
-<h2>API Endpoints</h2>
+<h2>8. Common Problems & Fixes</h2>
 
-<h3>Offers</h3>
+<h3>Problem: Server won't start</h3>
+<p>Check:</p>
 <ul>
-  <li>GET /api/offers</li>
-  <li>GET /api/offers/:id</li>
-  <li>POST /api/offers</li>
-  <li>PUT /api/offers/:id</li>
-  <li>DELETE /api/offers/:id</li>
+  <li>.env file exists inside server/</li>
+  <li>MONGO_URI is correctly pasted</li>
+  <li>No extra spaces or quotes in your connection string</li>
 </ul>
 
-<h3>Members</h3>
-<ul>
-  <li>GET /api/members</li>
-  <li>GET /api/members/:id</li>
-  <li>POST /api/members</li>
-</ul>
+<h3>Problem: Client runs but no data shows</h3>
+<p>Make sure the server is running on port 4000.</p>
 
-<h3>Statistics</h3>
+<h3>Problem: MongoDB connection fails</h3>
 <ul>
-  <li>GET /api/offers/stats/skill-tags</li>
+  <li>Correct username and password?</li>
+  <li>Network access set to "Allow from anywhere"?</li>
+  <li>Database exists: skill_swap_db</li>
 </ul>
 
 <hr>
 
-<h2>Dependencies Installed</h2>
+<h2>9. Summary</h2>
 
-<h3>Client Dependencies</h3>
-<ul>
-  <li>react</li>
-  <li>react-dom</li>
-  <li>react-router-dom</li>
-  <li>axios</li>
-  <li>vite</li>
-</ul>
-
-<h3>Server Dependencies</h3>
-<ul>
-  <li>express</li>
-  <li>mongoose</li>
-  <li>cors</li>
-  <li>dotenv</li>
-  <li>nodemon (dev)</li>
-</ul>
-
-<hr>
-
-<h2>Prerequisites</h2>
-<ul>
-  <li>Node.js version 18 or higher</li>
-  <li>NPM (comes with Node)</li>
-  <li>A MongoDB Atlas account with a cluster created</li>
-  <li>Your MongoDB co
+<p>
+The Campus Skill Swap application is a complete MERN project featuring CRUD 
+operations, filtering, MongoDB aggregation, user profiles, saved offers, and a 
+responsive UI. This guide provides all steps required to install, configure, and 
+successfully run the application on any machine.
+</p>
