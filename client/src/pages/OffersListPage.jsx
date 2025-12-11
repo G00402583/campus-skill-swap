@@ -1,8 +1,8 @@
-
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import apiClient from "../api/apiClient.js";
 import SkillTagSummary from "../components/SkillTagSummary.jsx";
+import SaveOfferButton from "../components/SaveOfferButton.jsx";
 
 function OffersListPage() {
   const [offers, setOffers] = useState([]);
@@ -132,9 +132,13 @@ function OffersListPage() {
                     )}
                   </div>
                   <div className="offer-actions">
-                    <Link to={`/offers/${offer._id}`} className="link-quiet">
+                    <Link
+                      to={`/offers/${offer._id}`}
+                      className="button-secondary"
+                    >
                       View details
                     </Link>
+                    <SaveOfferButton offerId={offer._id} />
                   </div>
                 </li>
               ))}
